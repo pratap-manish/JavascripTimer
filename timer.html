@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <style>
+      body {
+        height: 90vh;
+      }
+      .container {
+        max-width: 800px;
+        background-color: rgb(255, 217, 185);
+        /* height: 30rem; */
+        text-align: center;
+        height: 100%;
+        margin: 0 auto;
+        margin-top: 2rem;
+        position: relative;
+      }
+      .btn {
+        margin: 1% 2%;
+        transform: translate(0, -50%);
+        font-size: 2rem;
+        padding: 2%;
+        border-radius: 1rem;
+        border: none;
+        width: 40%;
+        background-color: rgb(117, 214, 193);
+      }
+      .main {
+        position: absolute;
+        height: 80%;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translate(0, -50%);
+        background-color: rgb(255, 217, 185);
+      }
+      .flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0rem;
+      }
+      input {
+        margin: 5.6rem auto 5rem;
+        font-size: 1.5rem;
+        padding: 2%;
+        border-radius: 1rem;
+        border: none;
+        background-color: #999;
+      }
+      .stop {
+        margin-top: 2rem;
+        z-index: 1;
+      }
+      .hide {
+        visibility: hidden;
+        margin: 2rem;
+        margin-bottom: 0rem;
+        /* position: absolute; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main">
+        <div class="flex">
+          <button class="btn stop hide" onclick="end()"></button>
+          <input
+            type="number"
+            class="input"
+            placeholder="enter time in minutes"
+          />
+        </div>
+        <button class="btn start">START TIMER</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.querySelector(".start").addEventListener("click", function () {
+      var inp = document.querySelector(".input").value;
+      document.querySelector(".input").style.cssText = `margin-top:0.4rem;`;
+      var input = inp * 60;
+      document.querySelector(".stop").classList.remove("hide");
+      document.querySelector(".stop").innerHTML =
+        "time left : " +
+        Math.floor(input / 60) +
+        " mins " +
+        (input - Math.floor(input / 60) * 60) +
+        " secs";
+      setInterval(function () {
+        if (input != 0) {
+          input = input - 1;
+          document.querySelector(".stop").innerHTML =
+            "time left : " +
+            Math.floor(input / 60) +
+            " mins " +
+            (input - Math.floor(input / 60) * 60) +
+            " secs";
+        } else {
+          var music = new Audio("wrong.mp3");
+          music.play();
+        }
+      }, 1000);
+    });
+  </script>
+</html>
